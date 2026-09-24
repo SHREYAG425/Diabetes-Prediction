@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diabetes Risk Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        Diabetes Risk Checker
+      </div>
+      <span class="nav-tag">ML-powered</span>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <div class="hero">
+      <h1>Check your diabetes risk in seconds</h1>
+      <p>A Decision Tree model trained on 100,000 patient records — comparing Logistic Regression and Decision Tree before picking the stronger one.</p>
+    </div>
+
+    <div class="layout">
+
+      <!-- ---- Form card ---- -->
+      <form id="predict-form" class="card">
+
+        <div class="section-title">About you</div>
+        <div class="grid-2">
+
+          <div class="field">
+            <label>Gender</label>
+            <div class="toggle-group" data-field="gender">
+              <button type="button" class="toggle-btn active" data-value="Female">Female</button>
+              <button type="button" class="toggle-btn" data-value="Male">Male</button>
+              <button type="button" class="toggle-btn" data-value="Other">Other</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="age">Age <span class="value-badge" id="age-value">30</span></label>
+            <input type="range" id="age" min="1" max="100" value="30">
+          </div>
+
+        </div>
+
+        <div class="section-title">Health history</div>
+        <div class="grid-2">
+
+          <div class="field switch-field">
+            <label for="hypertension">Hypertension</label>
+            <label class="switch">
+              <input type="checkbox" id="hypertension">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="field switch-field">
+            <label for="heart_disease">Heart disease</label>
+            <label class="switch">
+              <input type="checkbox" id="heart_disease">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="smoking_history">Smoking history</label>
+            <select id="smoking_history">
+              <option value="never">Never smoked</option>
+              <option value="No Info">Prefer not to say</option>
+              <option value="current">Currently smoke</option>
+              <option value="former">Former smoker</option>
+              <option value="not current">Smoked, not currently</option>
+              <option value="ever">Smoked at some point</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="section-title">Clinical measurements</div>
+        <div class="grid-2">
+
+          <div class="field">
+            <label for="bmi">BMI <span class="value-badge" id="bmi-value">24.0</span></label>
+            <input type="range" id="bmi" min="10" max="60" step="0.1" value="24.0">
+          </div>
+
+          <div class="field">
+            <label for="HbA1c_level">HbA1c level <span class="value-badge" id="hba1c-value">5.5</span></label>
+            <input type="range" id="HbA1c_level" min="3.5" max="9" step="0.1" value="5.5">
+          </div>
+
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="blood_glucose_level">Blood glucose level (mg/dL) <span class="value-badge" id="glucose-value">120</span></label>
+            <input type="range" id="blood_glucose_level" min="60" max="300" value="120">
+          </div>
+
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <span id="submit-text">Check my risk</span>
+        </button>
+
+      </form>
+
+      <!-- ---- Result panel ---- -->
+      <aside class="card result-card" id="result-card">
+        <div class="result-empty" id="result-empty">
+          <div class="result-empty-icon">🩺</div>
+          <p>Fill in the form and click <strong>Check my risk</strong> to see your prediction here.</p>
+        </div>
+
+        <div class="result-content" id="result-content" hidden>
+          <div class="result-label" id="result-label"></div>
+          <div class="probability-bar-track">
+            <div class="probability-bar-fill" id="probability-bar-fill"></div>
+          </div>
+          <div class="probability-text" id="probability-text"></div>
+          <p class="disclaimer">This is an educational demo, not a medical diagnosis. Please consult a healthcare professional for real concerns.</p>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="footer">Built with Python, scikit-learn, Flask &amp; JavaScript</footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
